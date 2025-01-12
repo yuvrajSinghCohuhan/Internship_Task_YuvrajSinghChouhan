@@ -1,0 +1,141 @@
+CREATE SCHEMA `oladb` ;
+use oladb;
+
+CREATE TABLE `oladb`.`drivers` (
+  `driver_id` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(45) NOT NULL,
+  `last_name` VARCHAR(45) NOT NULL,
+  `phone` VARCHAR(20) NOT NULL,
+  `city` VARCHAR(45) NOT NULL,
+  `vehicleType` VARCHAR(100) NOT NULL,
+  `rating` DECIMAL(5,2) NOT NULL,
+  PRIMARY KEY (`driver_id`));
+  
+  CREATE TABLE `oladb`.`riders` (
+  `rider_id` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(45) NOT NULL,
+  `last_name` VARCHAR(45) NOT NULL,
+  `phone` VARCHAR(20) NOT NULL,
+  `city` VARCHAR(45) NOT NULL,
+  `join_date` DATETIME NOT NULL,
+  PRIMARY KEY (`rider_id`));
+  
+  CREATE TABLE `oladb`.`rides` (
+  `ride_id` INT NOT NULL AUTO_INCREMENT,
+  `riderId` INT NOT NULL,
+  `driverId` INT NOT NULL,
+  `ride_date` DATETIME NOT NULL,
+  `pickup_location` DECIMAL(10,2) NOT NULL,
+  `drop_location` DECIMAL(10,2) NOT NULL,
+  `distance` DECIMAL(10,2) NOT NULL,
+  `fare` DECIMAL(10,2) NOT NULL,
+  `ride_status` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`ride_id`),
+  INDEX `rider_id_idx` (`riderId` ASC) VISIBLE,
+  INDEX `driver_id_idx` (`driverId` ASC) VISIBLE,
+  CONSTRAINT `riderId`
+    FOREIGN KEY (`riderId`)
+    REFERENCES `oladb`.`riders` (`rider_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `driverId`
+    FOREIGN KEY (`driverId`)
+    REFERENCES `oladb`.`drivers` (`driver_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+    CREATE TABLE `oladb`.`payments` (
+  `pay_id` INT NOT NULL AUTO_INCREMENT,
+  `rideId` INT NOT NULL,
+  `payment_method` VARCHAR(100) NOT NULL,
+  `amount` DECIMAL(10,2) NOT NULL,
+  `payment_date` DATETIME NOT NULL,
+  PRIMARY KEY (`pay_id`),
+  INDEX `rideId_idx` (`rideId` ASC) VISIBLE,
+  CONSTRAINT `rideId`
+    FOREIGN KEY (`rideId`)
+    REFERENCES `oladb`.`rides` (`ride_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+-- Insert sample data into `drivers`
+INSERT INTO `oladb`.`drivers` (`first_name`, `last_name`, `phone`, `city`, `vehicleType`, `rating`) VALUES
+('John', 'Doe', '1234567890', 'New York', 'Sedan', 4.5),
+('Jane', 'Smith', '9876543210', 'Los Angeles', 'SUV', 4.7),
+('Mike', 'Johnson', '4567891230', 'Chicago', 'Hatchback', 4.6),
+('Emily', 'Davis', '7891234560', 'Houston', 'Sedan', 4.8),
+('Chris', 'Brown', '6543219870', 'Phoenix', 'SUV', 4.2),
+('Sarah', 'Wilson', '3219876540', 'Philadelphia', 'Sedan', 4.3),
+('David', 'Taylor', '1472583690', 'San Antonio', 'SUV', 4.9),
+('Sophia', 'Anderson', '3692581470', 'San Diego', 'Hatchback', 4.4),
+('Daniel', 'Martinez', '2581473690', 'Dallas', 'Sedan', 4.1),
+('Olivia', 'Hernandez', '7418529630', 'San Jose', 'SUV', 4.6);
+
+-- Insert sample data into `riders`
+INSERT INTO `oladb`.`riders` (`first_name`, `last_name`, `phone`, `city`, `join_date`) VALUES
+('Liam', 'Miller', '8527419630', 'New York', '2022-01-10 09:00:00'),
+('Noah', 'Garcia', '9638527410', 'Los Angeles', '2022-03-15 10:30:00'),
+('Emma', 'Martinez', '7896541230', 'Chicago', '2022-05-20 14:45:00'),
+('Ava', 'Rodriguez', '4561237890', 'Houston', '2022-07-25 16:00:00'),
+('Isabella', 'Martinez', '1237896540', 'Phoenix', '2022-09-12 18:20:00'),
+('Mason', 'Clark', '9873216540', 'Philadelphia', '2023-01-01 09:15:00'),
+('Lucas', 'Lewis', '7419638520', 'San Antonio', '2023-02-14 11:10:00'),
+('Ethan', 'Walker', '3216549870', 'San Diego', '2023-03-20 12:00:00'),
+('Charlotte', 'Young', '2583691470', 'Dallas', '2023-04-18 14:30:00'),
+('Amelia', 'Hall', '3691472580', 'San Jose', '2023-05-05 15:00:00');
+
+-- Insert sample data into `rides`
+INSERT INTO `oladb`.`rides` (`riderId`, `driverId`, `ride_date`, `pickup_location`, `drop_location`, `distance`, `fare`, `ride_status`) VALUES
+(1, 1, '2023-01-10 10:00:00', 10.23, 15.47, 5.24, 15.72, 'Completed'),
+(2, 2, '2023-01-12 11:30:00', 20.30, 25.60, 5.30, 18.50, 'Completed'),
+(3, 3, '2023-01-15 14:00:00', 30.10, 35.70, 5.60, 20.00, 'Completed'),
+(4, 4, '2023-02-01 15:30:00', 40.25, 45.35, 5.10, 17.50, 'Completed'),
+(5, 5, '2023-02-15 16:45:00', 50.40, 55.50, 5.10, 19.80, 'Cancelled'),
+(6, 6, '2023-03-01 09:15:00', 60.30, 65.20, 4.90, 16.40, 'Completed'),
+(7, 7, '2023-03-15 10:20:00', 70.10, 75.50, 5.40, 18.70, 'Completed'),
+(8, 8, '2023-04-01 12:30:00', 80.50, 85.20, 4.70, 15.80, 'Completed'),
+(9, 9, '2023-04-15 13:45:00', 90.60, 95.70, 5.10, 20.00, 'Cancelled'),
+(10, 10, '2023-05-01 15:00:00', 100.40, 105.50, 5.10, 21.50, 'Completed');
+
+-- Insert sample data into `payments`
+INSERT INTO `oladb`.`payments` (`rideId`, `payment_method`, `amount`, `payment_date`) VALUES
+(1, 'Credit Card', 15.72, '2023-01-10 10:05:00'),
+(2, 'Debit Card', 18.50, '2023-01-12 11:35:00'),
+(3, 'UPI', 20.00, '2023-01-15 14:05:00'),
+(4, 'Cash', 17.50, '2023-02-01 15:35:00'),
+(6, 'Credit Card', 16.40, '2023-03-01 09:20:00'),
+(7, 'Debit Card', 18.70, '2023-03-15 10:25:00'),
+(8, 'UPI', 15.80, '2023-04-01 12:35:00'),
+(10, 'Cash', 21.50, '2023-05-01 15:05:00');
+
+#==============================================================================================================
+/*
+1.Retrieve the names and contact details of all drivers with a rating of 4.5 or higher?
+Ans : select first_name, last_name, phone, rating from drivers where rating >= '4.5';
+
+2.Find the total number of rides completed by each driver?
+Ans : select distinct(drivers.first_name),rides.ride_status from rides,drivers where ride_status = 'completed';
+
+3.List all riders who have never booked a ride?
+Ans: select distinct(r.first_name),r.rider_id from rides as rd left join riders as r on r.rider_id = rd.riderId where ride_status = 'null';
+
+4.Calculate the total earnings of each driver from completed rides?                                                                                                                                                                                                                                                                                                                                                                                                                  
+Ans : SELECT d.driver_id, d.first_name, d.last_name, SUM(r.fare) AS total_earnings FROM rides AS r JOIN drivers AS d ON r.driverId = d.driver_id WHERE r.ride_status = 'completed' GROUP BY d.driver_id, d.first_name, d.last_name ORDER BY total_earnings DESC;
+
+5.Retrieve the most recent ride for each driver?
+Ans : select r.first_name,rd.ride_date from rides as rd left join riders as r on rd.riderId = r.rider_Id order by rd.ride_date desc limit 1;
+
+6. Count the number of rides taken in each city?
+Ans : select rd.city, count(r.ride_id)from riders as rd join rides as r on rd.rider_id = r.riderId group by rd.city;
+
+7.List all rides where the distance was greater then 20km?
+Ans : select * from rides where distance > 20;
+
+8.Identify the most preferred payment method?
+Ans : SELECT payment_method, COUNT(payment_method) AS method_count FROM payments GROUP BY payment_method ORDER BY method_count DESC LIMIT 1;
+
+9.Find the top three highest earning drivers?
+Ans : select d.driver_id,d.first_name,sum(r.fare) from rides as r left join drivers as d on r.driverId = d.driver_id group by d.driver_id, d.first_name order by sum(r.fare) desc limit 1;
+
+10. Retrieve details of all cancelled rides along with the rider's and driver's names?
+Ans : select concat(d.first_name ,d.last_name) as driver_Name,r.driverId, concat(rd.first_name, rd.last_name) as rider_Name,r.ride_status from rides as r join riders as rd on r.riderId = rd.rider_id join drivers as d on r.driverId = d.driver_id where r.ride_status = 'cancelled';

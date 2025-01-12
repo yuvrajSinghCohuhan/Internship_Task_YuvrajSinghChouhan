@@ -1,0 +1,216 @@
+create database fooddelivery;
+use fooddelivery;
+
+CREATE TABLE Restaurants (
+    RestaurantID INT PRIMARY KEY,
+    Name VARCHAR(255),
+    City VARCHAR(255),
+    CuisineType VARCHAR(50),
+    Rating DECIMAL(2,1),
+    AverageCostForTwo DECIMAL(10,2)
+);
+
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY,
+    FirstName VARCHAR(255),
+    LastName VARCHAR(255),
+    Phone VARCHAR(15),
+    City VARCHAR(255),
+    JoinDate DATE
+);
+
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    CustomerID INT,
+    RestaurantID INT,
+    OrderDate DATE,
+    OrderAmount DECIMAL(10,2),
+    OrderStatus VARCHAR(50),
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
+    FOREIGN KEY (RestaurantID) REFERENCES Restaurants(RestaurantID)
+);
+
+CREATE TABLE Reviews (
+    ReviewID INT PRIMARY KEY,
+    CustomerID INT,
+    RestaurantID INT,
+    Rating DECIMAL(2,1),
+    Comment TEXT,
+    ReviewDate DATE,
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
+    FOREIGN KEY (RestaurantID) REFERENCES Restaurants(RestaurantID)
+);
+
+CREATE TABLE Payments (
+    PaymentID INT PRIMARY KEY,
+    OrderID INT,
+    PaymentMethod VARCHAR(50),
+    Amount DECIMAL(10,2),
+    PaymentDate DATE,
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
+);
+
+-- Insert 25 Indian Restaurant records
+INSERT INTO Restaurants (RestaurantID, Name, City, CuisineType, Rating, AverageCostForTwo) VALUES
+(1, 'Biryani Paradise', 'New York', 'Indian', 4.5, 20.00),
+(2, 'Royal Indian Kitchen', 'New York', 'Indian', 4.0, 25.00),
+(3, 'Spicy Saffron', 'New York', 'Indian', 4.7, 30.00),
+(4, 'The Indian Feast', 'Los Angeles', 'Indian', 4.2, 22.00),
+(5, 'Mughal Mahal', 'Los Angeles', 'Indian', 4.8, 35.00),
+(6, 'Tandoori Nights', 'Los Angeles', 'Indian', 4.3, 28.00),
+(7, 'Bollywood Bistro', 'San Francisco', 'Indian', 4.6, 40.00),
+(8, 'Curry House', 'San Francisco', 'Indian', 4.4, 20.00),
+(9, 'Saffron Grill', 'San Francisco', 'Indian', 4.0, 18.00),
+(10, 'Curry King', 'Chicago', 'Indian', 4.5, 26.00),
+(11, 'Curry Craft', 'Chicago', 'Indian', 4.1, 27.00),
+(12, 'Indian Spice Room', 'Chicago', 'Indian', 4.2, 29.00),
+(13, 'Madhur Milan', 'Chicago', 'Indian', 4.7, 33.00),
+(14, 'The Spice Junction', 'Dallas', 'Indian', 4.3, 21.00),
+(15, 'Curry Mahal', 'Dallas', 'Indian', 4.6, 32.00),
+(16, 'Delhi Delight', 'Dallas', 'Indian', 4.8, 38.00),
+(17, 'Indian Tandoor', 'Miami', 'Indian', 4.4, 19.00),
+(18, 'Spices of India', 'Miami', 'Indian', 4.5, 24.00),
+(19, 'Biryani Brothers', 'Miami', 'Indian', 4.6, 23.00),
+(20, 'Dastarkhwan', 'Houston', 'Indian', 4.3, 28.00),
+(21, 'The Royal Thali', 'Houston', 'Indian', 4.8, 40.00),
+(22, 'Tandoor & Grill', 'Houston', 'Indian', 4.2, 30.00),
+(23, 'Korma Kitchen', 'Austin', 'Indian', 4.4, 22.00),
+(24, 'Naan & Curry', 'Austin', 'Indian', 4.5, 25.00),
+(25, 'Gulab Jamun House', 'Austin', 'Indian', 4.7, 27.00);
+
+-- Insert 25 Sample Customers
+INSERT INTO Customers (CustomerID, FirstName, LastName, Phone, City, JoinDate) VALUES
+(1, 'John', 'Doe', '1234567890', 'New York', '2023-01-15'),
+(2, 'Alice', 'Smith', '0987654321', 'Los Angeles', '2023-02-10'),
+(3, 'Bob', 'Johnson', '1112223333', 'San Francisco', '2023-03-05'),
+(4, 'Charlie', 'Brown', '2223334444', 'Chicago', '2023-04-20'),
+(5, 'David', 'Williams', '5556667777', 'Dallas', '2023-05-10'),
+(6, 'Emma', 'Davis', '3334445555', 'Miami', '2023-06-12'),
+(7, 'Frank', 'Miller', '6667778888', 'Houston', '2023-07-18'),
+(8, 'Grace', 'Wilson', '4445556666', 'Austin', '2023-08-25'),
+(9, 'Hank', 'Moore', '7778889999', 'Los Angeles', '2023-09-30'),
+(10, 'Ivy', 'Taylor', '5554443333', 'San Francisco', '2023-10-15'),
+(11, 'Jack', 'Anderson', '9990001111', 'Chicago', '2023-11-07'),
+(12, 'Kathy', 'Thomas', '1237894560', 'Dallas', '2023-12-05'),
+(13, 'Liam', 'Jackson', '3332221111', 'Miami', '2023-01-20'),
+(14, 'Megan', 'White', '4443332222', 'Houston', '2023-02-25'),
+(15, 'Noah', 'Harris', '5554443333', 'Austin', '2023-03-12'),
+(16, 'Olivia', 'Martin', '6665554444', 'New York', '2023-04-15'),
+(17, 'Paul', 'Lee', '7776665555', 'Los Angeles', '2023-05-20'),
+(18, 'Quincy', 'Walker', '8887776666', 'San Francisco', '2023-06-25'),
+(19, 'Rachel', 'Young', '9998887777', 'Chicago', '2023-07-30'),
+(20, 'Sam', 'Allen', '3334445555', 'Dallas', '2023-08-10'),
+(21, 'Tina', 'King', '4445556666', 'Miami', '2023-09-05'),
+(22, 'Ursula', 'Scott', '5556667777', 'Houston', '2023-10-01'),
+(23, 'Victor', 'Green', '6667778888', 'Austin', '2023-11-20'),
+(24, 'Willow', 'Baker', '7778889999', 'New York', '2023-12-15'),
+(25, 'Xander', 'Adams', '8889990000', 'San Francisco', '2023-01-10');
+
+
+-- Insert 25 Orders
+INSERT INTO Orders (OrderID, CustomerID, RestaurantID, OrderDate, OrderAmount, OrderStatus) VALUES
+(1, 1, 1, '2023-01-20', 20.00, 'Delivered'),
+(2, 2, 5, '2023-02-15', 35.00, 'Delivered'),
+(3, 3, 8, '2023-03-12', 28.00, 'Pending'),
+(4, 4, 12, '2023-04-25', 29.00, 'Delivered'),
+(5, 5, 15, '2023-05-15', 32.00, 'Cancelled'),
+(6, 6, 18, '2023-06-18', 24.00, 'Delivered'),
+(7, 7, 19, '2023-07-22', 30.00, 'Delivered'),
+(8, 8, 20, '2023-08-10', 22.00, 'Pending'),
+(9, 9, 6, '2023-09-12', 28.00, 'Delivered'),
+(10, 10, 21, '2023-10-05', 27.00, 'Cancelled'),
+(11, 11, 11, '2023-11-14', 33.00, 'Delivered'),
+(12, 12, 9, '2023-12-25', 26.00, 'Delivered'),
+(13, 13, 7, '2023-01-30', 23.00, 'Pending'),
+(14, 14, 3, '2023-02-18', 20.00, 'Delivered'),
+(15, 15, 12, '2023-03-02', 38.00, 'Cancelled'),
+(16, 16, 15, '2023-04-11', 22.00, 'Delivered'),
+(17, 17, 8, '2023-05-22', 19.00, 'Delivered'),
+(18, 18, 14, '2023-06-05', 30.00, 'Delivered'),
+(19, 19, 4, '2023-07-02', 28.00, 'Pending'),
+(20, 20, 16, '2023-08-14', 25.00, 'Cancelled'),
+(21, 21, 17, '2023-09-28', 32.00, 'Delivered'),
+(22, 22, 13, '2023-10-19', 29.00, 'Delivered'),
+(23, 23, 22, '2023-11-30', 27.00, 'Pending'),
+(24, 24, 18, '2023-12-10', 24.00, 'Delivered'),
+(25, 25, 23, '2023-01-10', 22.00, 'Delivered');
+
+
+-- Insert 25 Reviews
+INSERT INTO Reviews (ReviewID, CustomerID, RestaurantID, Rating, Comment, ReviewDate) VALUES
+(1, 1, 1, 5.0, 'Amazing biryani!', '2023-01-21'),
+(2, 2, 5, 4.5, 'Great flavors and service!', '2023-02-16'),
+(3, 3, 8, 4.0, 'Good, but could be spicier.', '2023-03-14'),
+(4, 4, 12, 4.5, 'Excellent food, will order again.', '2023-04-26'),
+(5, 5, 15, 3.5, 'The curry was a bit bland.', '2023-05-16'),
+(6, 6, 18, 4.5, 'Delicious and well-spiced!', '2023-06-20'),
+(7, 7, 19, 4.0, 'Good, but the service could be faster.', '2023-07-23'),
+(8, 8, 20, 5.0, 'Best Indian food I have ever tasted!', '2023-08-15'),
+(9, 9, 6, 4.5, 'Great quality food, but a bit too oily.', '2023-09-16'),
+(10, 10, 21, 3.0, 'The taste was fine, but the portions were small.', '2023-10-07'),
+(11, 11, 11, 4.7, 'Very tasty, would definitely recommend!', '2023-11-18'),
+(12, 12, 9, 4.0, 'Good food, but not authentic enough for me.', '2023-12-20'),
+(13, 13, 7, 4.5, 'Wonderful flavors and great portion size.', '2023-01-25'),
+(14, 14, 3, 3.8, 'Food was average.', '2023-02-23'),
+(15, 15, 12, 5.0, 'Superb! One of the best Indian restaurants in the city!', '2023-03-10'),
+(16, 16, 15, 4.2, 'Nice place, but the naan was a little too hard.', '2023-04-22'),
+(17, 17, 8, 4.6, 'Great spices, the food was fantastic!', '2023-05-30'),
+(18, 18, 14, 4.4, 'Good food overall, but could be improved.', '2023-06-10'),
+(19, 19, 4, 5.0, 'Absolutely amazing food. Highly recommended.', '2023-07-05'),
+(20, 20, 16, 3.9, 'Decent, but the food was a bit salty.', '2023-08-09'),
+(21, 21, 17, 4.8, 'Delicious, highly recommend the biryani!', '2023-09-12'),
+(22, 22, 13, 4.0, 'The taste was good, but the chicken was dry.', '2023-10-05'),
+(23, 23, 22, 4.3, 'Great food, but expensive for the portion size.', '2023-11-01'),
+(24, 24, 18, 4.5, 'Loved it! Would order again soon.', '2023-12-12'),
+(25, 25, 23, 4.8, 'Amazing curry, very flavorful.', '2023-01-11');
+
+
+-- Insert 25 Payments
+INSERT INTO Payments (PaymentID, OrderID, PaymentMethod, Amount, PaymentDate) VALUES
+(1, 1, 'Card', 20.00, '2023-01-20'),
+(2, 2, 'Cash', 35.00, '2023-02-15'),
+(3, 3, 'Wallet', 28.00, '2023-03-13'),
+(4, 4, 'Card', 29.00, '2023-04-25'),
+(5, 5, 'Card', 32.00, '2023-05-15'),
+(6, 6, 'Cash', 24.00, '2023-06-20'),
+(7, 7, 'Card', 30.00, '2023-07-22'),
+(8, 8, 'Wallet', 22.00, '2023-08-10'),
+(9, 9, 'Cash', 28.00, '2023-09-12'),
+(10, 10, 'Card', 27.00, '2023-10-05'),
+(11, 11, 'Wallet', 33.00, '2023-11-14'),
+(12, 12, 'Card', 26.00, '2023-12-25'),
+(13, 13, 'Cash', 23.00, '2023-01-30'),
+(14, 14, 'Wallet', 20.00, '2023-02-18'),
+(15, 15, 'Card', 38.00, '2023-03-02'),
+(16, 16, 'Card', 22.00, '2023-04-11'),
+(17, 17, 'Wallet', 19.00, '2023-05-22'),
+(18, 18, 'Card', 30.00, '2023-06-05'),
+(19, 19, 'Cash', 28.00, '2023-07-02'),
+(20, 20, 'Wallet', 25.00, '2023-08-14'),
+(21, 21, 'Card', 32.00, '2023-09-28'),
+(22, 22, 'Wallet', 29.00, '2023-10-19'),
+(23, 23, 'Card', 27.00, '2023-11-30'),
+(24, 24, 'Cash', 24.00, '2023-12-10'),
+(25, 25, 'Card', 22.00, '2023-01-10');
+
+#==============================================================================================================
+#1. Retrieve the names and locations of restaurants of 4.5 or higher?
+select r.Name as Restaurant_name, r.City as Location, r.Rating as Ratings from restaurants r where r.rating >= 4.5;
+#2. Find the total number of orders placed by each customer?
+SELECT c.CustomerID,c.FirstName,c.LastName,COUNT(o.OrderID) AS TotalOrders FROM Customers c LEFT JOIN Orders o ON c.CustomerID = o.CustomerID GROUP BY c.CustomerID, c.FirstName, c.LastName ORDER BY TotalOrders DESC;
+#3. List all restaurants offering "Italian" cusine in "Mumbai"?
+select * from restaurants r where r.CuisineType ="Italian" and r.City ="Mumbai";
+#4. Calculate the total revenue generated by each restaurant from completed orders?
+select r.restaurantId,r.Name,sum(o.OrderAmount) as Total_Revenue from restaurants r left join Orders o on r.restaurantId = o.restaurantId where o.OrderStatus = "Delivered" group by r.restaurantId order by Total_Revenue desc;
+#5. Retrieve the most recent order placed by each customer?
+select c.CustomerID as CustomerID,concat(c.firstName,c.lastName) as Customer_name, o.OrderDate as recentOrder from Customers c left join Orders o on c.CustomerID = o.CustomerID order by recentOrder desc;
+#6. List customers who have not placed any order yet?
+select c.firstName as customer from customers c left join orders o on c.customerID = o.customerID where c.customerID = "null" or o.orderID= "null";
+#7. Identify the most reviewed restaurants?
+select r.restaurantID,r.Name,r.City,count(rev.reviewID) as TotalReview from restaurants r left join reviews rev on r.restaurantID = rev.restaurantID group by r.restaurantID,r.Name,r.City order by TotalReview desc limit 1;
+#8. Find the most preferred payment method?
+select count(p.orderID) as Orders, p.paymentMethod as MostlyPreferred from payments p group by MostlyPreferred order by Orders desc;
+#9. List the top 5 restaurants by total revenue?
+select r.restaurantId,r.Name,sum(o.OrderAmount) as Total_Revenue from restaurants r left join Orders o on r.restaurantId = o.restaurantId group by r.restaurantId order by Total_Revenue desc limit 5;
+#10. show the details of all cancelled orders along with the customer's and restaurant's names?
+select concat(c.firstName,c.lastName) as customerName, r.Name as Restaurant,o.orderStatus as Status from orders o join customers c on o.customerID = c.customerID join restaurants r on o.restaurantID = r.restaurantID where o.orderStatus = "cancelled";

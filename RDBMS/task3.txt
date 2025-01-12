@@ -1,0 +1,193 @@
+create database retails;
+use retails;
+
+create table customers(customer_id int primary key auto_increment,
+first_name varchar(100) not null,
+last_name varchar(100) not null,
+email varchar(100) unique not null,
+phone varchar(20) not null,
+address text not null,
+join_date datetime  not null);
+
+create table products(product_id int primary key auto_increment,
+product_name varchar(100) not null,
+category varchar(100) not null,
+price decimal not null,
+stock_quantity int not null);
+
+create table orders(order_id int primary key auto_increment,
+customer_id int ,foreign key(customer_id) references customers(customer_id),
+order_date datetime not null,
+total_amount decimal not null,
+order_status varchar(20) not null);
+
+create table order_details(order_detail_id int primary key auto_increment,
+order_id int,foreign key(order_id) references orders(order_id),
+product_id int ,foreign key(product_id) references products(product_id),
+quantity int not null,
+unit_price decimal(10,2) not null);
+
+
+create table payments(payment_id int primary key auto_increment,
+order_id int,foreign key(order_id) references orders(order_id),
+payment_date datetime not null,
+payment_amount decimal(10,2) not null,
+payment_mode varchar(20) not null);
+
+INSERT INTO customers (first_name, last_name, email, phone, address, join_date) VALUES
+('Aarav', 'Sharma', 'aarav.sharma@example.com', '9876543210', '123 MG Road, Bangalore, KA', '2024-01-01 10:00:00'),
+('Isha', 'Verma', 'isha.verma@example.com', '9876543211', '456 BTM Layout, Bangalore, KA', '2024-01-02 11:00:00'),
+('Rohit', 'Kumar', 'rohit.kumar@example.com', '9876543212', '789 Koramangala, Bangalore, KA', '2024-01-03 12:00:00'),
+('Neha', 'Patel', 'neha.patel@example.com', '9876543213', '101 Bellandur, Bangalore, KA', '2024-01-04 13:00:00'),
+('Karan', 'Gupta', 'karan.gupta@example.com', '9876543214', '202 HSR Layout, Bangalore, KA', '2024-01-05 14:00:00'),
+('Amit', 'Singh', 'amit.singh@example.com', '9876543215', '303 Indiranagar, Bangalore, KA', '2024-01-06 15:00:00'),
+('Priya', 'Yadav', 'priya.yadav@example.com', '9876543216', '404 Whitefield, Bangalore, KA', '2024-01-07 16:00:00'),
+('Manav', 'Mehta', 'manav.mehta@example.com', '9876543217', '505 JP Nagar, Bangalore, KA', '2024-01-08 17:00:00'),
+('Simran', 'Reddy', 'simran.reddy@example.com', '9876543218', '606 Marathahalli, Bangalore, KA', '2024-01-09 18:00:00'),
+('Rani', 'Kumari', 'rani.kumari@example.com', '9876543219', '707 Frazer Town, Bangalore, KA', '2024-01-10 19:00:00'),
+('Vikram', 'Patel', 'vikram.patel@example.com', '9876543220', '808 Malleswaram, Bangalore, KA', '2024-01-11 20:00:00'),
+('Tanya', 'Verma', 'tanya.verma@example.com', '9876543221', '909 Basavanagudi, Bangalore, KA', '2024-01-12 21:00:00'),
+('Sandeep', 'Rao', 'sandeep.rao@example.com', '9876543222', '1010 Jayanagar, Bangalore, KA', '2024-01-13 22:00:00'),
+('Deepak', 'Chopra', 'deepak.chopra@example.com', '9876543223', '1110 Yelahanka, Bangalore, KA', '2024-01-14 23:00:00'),
+('Shivani', 'Sharma', 'shivani.sharma@example.com', '9876543224', '1210 Banashankari, Bangalore, KA', '2024-01-15 10:00:00'),
+('Ravi', 'Khan', 'ravi.khan@example.com', '9876543225', '1310 Rajajinagar, Bangalore, KA', '2024-01-16 11:00:00'),
+('Anjali', 'Singh', 'anjali.singh@example.com', '9876543226', '1410 Yeshwanthpur, Bangalore, KA', '2024-01-17 12:00:00'),
+('Manoj', 'Kumar', 'manoj.kumar@example.com', '9876543227', '1510 Malleshwaram, Bangalore, KA', '2024-01-18 13:00:00'),
+('Rakesh', 'Shukla', 'rakesh.shukla@example.com', '9876543228', '1610 Hebbal, Bangalore, KA', '2024-01-19 14:00:00'),
+('Pooja', 'Bansal', 'pooja.bansal@example.com', '9876543229', '1710 Ulsoor, Bangalore, KA', '2024-01-20 15:00:00'),
+('Kriti', 'Mehta', 'kriti.mehta@example.com', '9876543230', '1810 Domlur, Bangalore, KA', '2024-01-21 16:00:00'),
+('Vishal', 'Gupta', 'vishal.gupta@example.com', '9876543231', '1910 Malleshwaram, Bangalore, KA', '2024-01-22 17:00:00'),
+('Akash', 'Patel', 'akash.patel@example.com', '9876543232', '2010 Hebbal, Bangalore, KA', '2024-01-23 18:00:00'),
+('Sushmita', 'Reddy', 'sushmita.reddy@example.com', '9876543233', '2110 Yelahanka, Bangalore, KA', '2024-01-24 19:00:00'),
+('Sakshi', 'Verma', 'sakshi.verma@example.com', '9876543234', '2210 Banaswadi, Bangalore, KA', '2024-01-25 20:00:00'),
+('Tarun', 'Yadav', 'tarun.yadav@example.com', '9876543235', '2310 HSR Layout, Bangalore, KA', '2024-01-26 21:00:00');
+
+INSERT INTO products (product_name, category, price, stock_quantity) VALUES
+('Laptop', 'Electronics', 45000.00, 100),
+('Smartphone', 'Electronics', 25000.00, 150),
+('Smartwatch', 'Electronics', 5000.00, 200),
+('Bluetooth Headphones', 'Electronics', 3000.00, 300),
+('Washing Machine', 'Home Appliances', 15000.00, 80),
+('Refrigerator', 'Home Appliances', 25000.00, 60),
+('LED TV', 'Electronics', 35000.00, 50),
+('Air Conditioner', 'Home Appliances', 25000.00, 40),
+('Microwave', 'Home Appliances', 8000.00, 90),
+('Juicer', 'Home Appliances', 2500.00, 120),
+('Sofa', 'Furniture', 18000.00, 30),
+('Dining Table', 'Furniture', 10000.00, 40),
+('Bed', 'Furniture', 20000.00, 70),
+('Chair', 'Furniture', 2000.00, 150),
+('Desk', 'Furniture', 5000.00, 120),
+('Shirt', 'Clothing', 1000.00, 200),
+('Jeans', 'Clothing', 1500.00, 180),
+('T-shirt', 'Clothing', 500.00, 300),
+('Jacket', 'Clothing', 3000.00, 100),
+('Dress', 'Clothing', 2500.00, 150),
+('Sports Shoes', 'Footwear', 2000.00, 200),
+('Sandals', 'Footwear', 800.00, 250),
+('Sneakers', 'Footwear', 2500.00, 150),
+('Boots', 'Footwear', 3500.00, 70),
+('Flip Flops', 'Footwear', 500.00, 350);
+
+INSERT INTO orders (customer_id, order_date, total_amount, order_status) VALUES
+(1, '2024-01-01 11:00:00', 50000.00, 'Completed'),
+(2, '2024-01-02 12:00:00', 25000.00, 'Completed'),
+(3, '2024-01-03 13:00:00', 15000.00, 'Pending'),
+(4, '2024-01-04 14:00:00', 5000.00, 'Completed'),
+(5, '2024-01-05 15:00:00', 18000.00, 'Completed'),
+(6, '2024-01-06 16:00:00', 25000.00, 'Completed'),
+(7, '2024-01-07 17:00:00', 5000.00, 'Completed'),
+(8, '2024-01-08 18:00:00', 8000.00, 'Completed'),
+(9, '2024-01-09 19:00:00', 35000.00, 'Pending'),
+(10, '2024-01-10 20:00:00', 12000.00, 'Completed'),
+(11, '2024-01-11 21:00:00', 2000.00, 'Completed'),
+(12, '2024-01-12 22:00:00', 10000.00, 'Pending'),
+(13, '2024-01-13 23:00:00', 18000.00, 'Completed'),
+(14, '2024-01-14 10:00:00', 8000.00, 'Completed'),
+(15, '2024-01-15 11:00:00', 25000.00, 'Completed'),
+(16, '2024-01-16 12:00:00', 5000.00, 'Pending'),
+(17, '2024-01-17 13:00:00', 5000.00, 'Completed'),
+(18, '2024-01-18 14:00:00', 3000.00, 'Pending'),
+(19, '2024-01-19 15:00:00', 8000.00, 'Completed'),
+(20, '2024-01-20 16:00:00', 12000.00, 'Completed'),
+(21, '2024-01-21 17:00:00', 3000.00, 'Completed'),
+(22, '2024-01-22 18:00:00', 10000.00, 'Pending'),
+(23, '2024-01-23 19:00:00', 18000.00, 'Completed'),
+(24, '2024-01-24 20:00:00', 8000.00, 'Pending'),
+(25, '2024-01-25 21:00:00', 15000.00, 'Completed');
+
+INSERT INTO order_details (order_id, product_id, quantity, unit_price) VALUES
+(1, 1, 1, 45000.00),
+(1, 2, 2, 25000.00),
+(2, 3, 1, 5000.00),
+(2, 4, 3, 3000.00),
+(3, 5, 1, 15000.00),
+(3, 6, 2, 10000.00),
+(4, 7, 1, 25000.00),
+(4, 8, 2, 4000.00),
+(5, 9, 1, 5000.00),
+(5, 10, 3, 2500.00),
+(6, 11, 1, 18000.00),
+(6, 12, 2, 10000.00),
+(7, 13, 1, 5000.00),
+(7, 14, 2, 3000.00),
+(8, 15, 3, 2000.00),
+(8, 16, 1, 3500.00),
+(9, 17, 2, 2000.00),
+(9, 18, 1, 2500.00),
+(10, 19, 2, 1000.00),
+(10, 20, 1, 3000.00);
+
+INSERT INTO payments (order_id, payment_date, payment_amount, payment_mode) VALUES
+(1, '2024-01-01 12:00:00', 50000.00, 'Credit Card'),
+(2, '2024-01-02 13:00:00', 25000.00, 'Debit Card'),
+(3, '2024-01-03 14:00:00', 15000.00, 'Cash'),
+(4, '2024-01-04 15:00:00', 5000.00, 'Net Banking'),
+(5, '2024-01-05 16:00:00', 18000.00, 'Credit Card'),
+(6, '2024-01-06 17:00:00', 25000.00, 'Debit Card'),
+(7, '2024-01-07 18:00:00', 5000.00, 'Cash'),
+(8, '2024-01-08 19:00:00', 8000.00, 'UPI'),
+(9, '2024-01-09 20:00:00', 35000.00, 'Credit Card'),
+(10, '2024-01-10 21:00:00', 12000.00, 'Debit Card'),
+(11, '2024-01-11 22:00:00', 2000.00, 'Cash'),
+(12, '2024-01-12 23:00:00', 10000.00, 'Net Banking'),
+(13, '2024-01-13 10:00:00', 18000.00, 'UPI'),
+(14, '2024-01-14 11:00:00', 8000.00, 'Credit Card'),
+(15, '2024-01-15 12:00:00', 25000.00, 'Debit Card'),
+(16, '2024-01-16 13:00:00', 5000.00, 'Cash'),
+(17, '2024-01-17 14:00:00', 5000.00, 'Net Banking'),
+(18, '2024-01-18 15:00:00', 3000.00, 'UPI'),
+(19, '2024-01-19 16:00:00', 8000.00, 'Credit Card'),
+(20, '2024-01-20 17:00:00', 12000.00, 'Debit Card');
+
+#===================================================================================================================================================================================
+
+1.Find the total number of Orders for each cutomers?
+select c.customer_id,c.first_name, count(o.order_id) from orders o left join customers c on o.customer_id= c.customer_id group by c.customer_id;
+
+2.Find the total sales amount for each product?
+select o.order_id, p.product_name,o.quantity*unit_price as revenue from order_details o left join products p on o.product_id = p.product_id;
+
+3.Find the most expensive product sold?
+SELECT p.product_name, od.unit_price FROM order_details od INNER JOIN products p ON od.product_id = p.product_id ORDER BY od.unit_price DESC LIMIT 1;
+
+4.Get the list of customers who have placed orders in the last 30 days?
+SELECT DISTINCT c.customer_id, c.first_name, c.last_name, c.email, c.phone,o.order_date FROM customers c INNER JOIN orders o ON c.customer_id = o.customer_id WHERE o.order_date >= NOW() - INTERVAL 30 DAY ORDER BY o.order_date DESC;
+
+5.Calculate the total amount paid by each customer?
+select sum(p.payment_amount) as total_amount,o.customer_id from payments as p inner join orders as o on p.order_id=o.order_id group by customer_id;
+
+6.Get the number of product sold by category?
+select o.order_status,p.category,count(p.product_id) as total_product from products as p inner join order_details as od on od.product_id=p.product_id inner join orders as o on o.order_id=od.order_id where o.order_status="completed" group by p.category;
+
+7.list all orders that are pending?
+select o.order_id ,o.order_status from orders as o where o.order_status= 'pending';
+
+8.find the average order value(total order amount / number of orders)?
+select sum(total_amount)/count(order_id) from orders;
+
+9.list the top 5 customers who have spent the most money?
+select o.customer_id,sum(o.total_amount) as total_amount from orders o group by o.customer_id order by total_amount desc limit 5;
+
+10.Find the product that have never been sold? 
+select * from products p left join order_details o on p.product_id = o.product_id where p.product_id is null;

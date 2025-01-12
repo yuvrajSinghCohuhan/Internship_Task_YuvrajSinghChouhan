@@ -1,0 +1,254 @@
+create database Doctors;
+use doctors;
+CREATE TABLE Departments (
+    department_id INT PRIMARY KEY,
+    department_name VARCHAR(100)
+);
+
+CREATE TABLE Specialties (
+    specialty_id INT PRIMARY KEY,
+    specialty_name VARCHAR(100)
+);
+
+CREATE TABLE Doctors (
+    doctor_id INT PRIMARY KEY,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    email VARCHAR(100),
+    phone VARCHAR(20),
+    department_id INT,
+    specialty_id INT,
+    joining_date DATE,
+    FOREIGN KEY (department_id) REFERENCES Departments(department_id),
+    FOREIGN KEY (specialty_id) REFERENCES Specialties(specialty_id)
+);
+
+CREATE TABLE Patients (
+    patient_id INT PRIMARY KEY,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    email VARCHAR(100),
+    phone VARCHAR(20),
+    date_of_birth DATE,
+    gender VARCHAR(10),
+    address TEXT
+);
+
+CREATE TABLE Appointments (
+    appointment_id INT PRIMARY KEY,
+    doctor_id INT,
+    patient_id INT,
+    appointment_date DATETIME,
+    reason TEXT,
+    status VARCHAR(20),
+    FOREIGN KEY (doctor_id) REFERENCES Doctors(doctor_id),
+    FOREIGN KEY (patient_id) REFERENCES Patients(patient_id)
+);
+
+CREATE TABLE Payments (
+    payment_id INT PRIMARY KEY,
+    appointment_id INT,
+    payment_date DATE,
+    payment_amount DECIMAL(10, 2),
+    payment_method VARCHAR(20),
+    FOREIGN KEY (appointment_id) REFERENCES Appointments(appointment_id)
+);
+
+INSERT INTO Departments (department_id, department_name) VALUES
+(1, 'Cardiology'),
+(2, 'Dermatology'),
+(3, 'Neurology'),
+(4, 'Orthopedics'),
+(5, 'Pediatrics'),
+(6, 'Gynecology'),
+(7, 'General Surgery'),
+(8, 'ENT'),
+(9, 'Radiology'),
+(10, 'Oncology'),
+(11, 'Psychiatry'),
+(12, 'Dentistry'),
+(13, 'Gastroenterology'),
+(14, 'Urology'),
+(15, 'Nephrology'),
+(16, 'Ophthalmology'),
+(17, 'Pathology'),
+(18, 'Endocrinology'),
+(19, 'Rheumatology'),
+(20, 'Hematology'),
+(21, 'Plastic Surgery'),
+(22, 'Internal Medicine'),
+(23, 'Emergency Medicine'),
+(24, 'Anesthesiology'),
+(25, 'Physical Therapy');
+
+
+INSERT INTO Specialties (specialty_id, specialty_name) VALUES
+(1, 'Cardiology'),
+(2, 'Dermatology'),
+(3, 'Neurology'),
+(4, 'Orthopedics'),
+(5, 'Pediatrics'),
+(6, 'Gynecology'),
+(7, 'General Surgery'),
+(8, 'ENT'),
+(9, 'Radiology'),
+(10, 'Oncology'),
+(11, 'Psychiatry'),
+(12, 'Dentistry'),
+(13, 'Gastroenterology'),
+(14, 'Urology'),
+(15, 'Nephrology'),
+(16, 'Ophthalmology'),
+(17, 'Pathology'),
+(18, 'Endocrinology'),
+(19, 'Rheumatology'),
+(20, 'Hematology'),
+(21, 'Plastic Surgery'),
+(22, 'Internal Medicine'),
+(23, 'Emergency Medicine'),
+(24, 'Anesthesiology'),
+(25, 'Physical Therapy');
+
+
+INSERT INTO Doctors (doctor_id, first_name, last_name, email, phone, department_id, specialty_id, joining_date) VALUES
+(1, 'Dr. Amit', 'Sharma', 'amit.sharma@example.com', '9876543210', 1, 1, '2010-05-01'),
+(2, 'Dr. Priya', 'Verma', 'priya.verma@example.com', '9876543211', 2, 2, '2012-07-15'),
+(3, 'Dr. Raj', 'Kumar', 'raj.kumar@example.com', '9876543212', 3, 3, '2014-08-10'),
+(4, 'Dr. Sita', 'Pandey', 'sita.pandey@example.com', '9876543213', 4, 4, '2015-01-05'),
+(5, 'Dr. Ravi', 'Shukla', 'ravi.shukla@example.com', '9876543214', 5, 5, '2016-03-10'),
+(6, 'Dr. Neha', 'Patel', 'neha.patel@example.com', '9876543215', 6, 6, '2017-04-12'),
+(7, 'Dr. Sanjay', 'Gupta', 'sanjay.gupta@example.com', '9876543216', 7, 7, '2018-05-22'),
+(8, 'Dr. Pooja', 'Joshi', 'pooja.joshi@example.com', '9876543217', 8, 8, '2019-06-14'),
+(9, 'Dr. Kunal', 'Singh', 'kunal.singh@example.com', '9876543218', 9, 9, '2020-07-18'),
+(10, 'Dr. Meena', 'Gupta', 'meena.gupta@example.com', '9876543219', 10, 10, '2021-08-25'),
+(11, 'Dr. Vinay', 'Kumar', 'vinay.kumar@example.com', '9876543220', 11, 11, '2015-05-01'),
+(12, 'Dr. Sunita', 'Sharma', 'sunita.sharma@example.com', '9876543221', 12, 12, '2016-06-10'),
+(13, 'Dr. Arvind', 'Yadav', 'arvind.yadav@example.com', '9876543222', 13, 13, '2017-07-15'),
+(14, 'Dr. Anjali', 'Patel', 'anjali.patel@example.com', '9876543223', 14, 14, '2018-08-20'),
+(15, 'Dr. Gaurav', 'Jha', 'gaurav.jha@example.com', '9876543224', 15, 15, '2019-09-11'),
+(16, 'Dr. Seema', 'Bansal', 'seema.bansal@example.com', '9876543225', 16, 16, '2020-10-30'),
+(17, 'Dr. Deepak', 'Nair', 'deepak.nair@example.com', '9876543226', 17, 17, '2015-04-12'),
+(18, 'Dr. Ritu', 'Singh', 'ritu.singh@example.com', '9876543227', 18, 18, '2016-05-14'),
+(19, 'Dr. Mohit', 'Patel', 'mohit.patel@example.com', '9876543228', 19, 19, '2017-06-17'),
+(20, 'Dr. Aarti', 'Kumar', 'aarti.kumar@example.com', '9876543229', 20, 20, '2018-07-20'),
+(21, 'Dr. Vikram', 'Mehta', 'vikram.mehta@example.com', '9876543230', 21, 21, '2019-08-23'),
+(22, 'Dr. Ayesha', 'Shaikh', 'ayesha.shaikh@example.com', '9876543231', 22, 22, '2020-09-25'),
+(23, 'Dr. Rakesh', 'Verma', 'rakesh.verma@example.com', '9876543232', 23, 23, '2021-10-27'),
+(24, 'Dr. Manish', 'Chauhan', 'manish.chauhan@example.com', '9876543233', 24, 24, '2022-11-05'),
+(25, 'Dr. Nisha', 'Jain', 'nisha.jain@example.com', '9876543234', 25, 25, '2023-12-10');
+
+
+INSERT INTO Patients (patient_id, first_name, last_name, email, phone, date_of_birth, gender, address) VALUES
+(1, 'Rahul', 'Mehta', 'rahul.mehta@example.com', '9922334455', '1990-05-10', 'Male', 'Mumbai, Maharashtra'),
+(2, 'Sita', 'Sharma', 'sita.sharma@example.com', '9922334456', '1985-06-15', 'Female', 'Delhi, Delhi'),
+(3, 'Anil', 'Verma', 'anil.verma@example.com', '9922334457', '1992-08-20', 'Male', 'Kolkata, West Bengal'),
+(4, 'Pooja', 'Patel', 'pooja.patel@example.com', '9922334458', '1995-11-25', 'Female', 'Ahmedabad, Gujarat'),
+(5, 'Amit', 'Kumar', 'amit.kumar@example.com', '9922334459', '1987-03-30', 'Male', 'Chennai, Tamil Nadu'),
+(6, 'Neha', 'Jain', 'neha.jain@example.com', '9922334460', '1993-02-05', 'Female', 'Bengaluru, Karnataka'),
+(7, 'Vikram', 'Singh', 'vikram.singh@example.com', '9922334461', '1989-04-18', 'Male', 'Pune, Maharashtra'),
+(8, 'Ritu', 'Yadav', 'ritu.yadav@example.com', '9922334462', '1994-07-22', 'Female', 'Lucknow, Uttar Pradesh'),
+(9, 'Kiran', 'Reddy', 'kiran.reddy@example.com', '9922334463', '1996-09-12', 'Female', 'Hyderabad, Telangana'),
+(10, 'Ravi', 'Chauhan', 'ravi.chauhan@example.com', '9922334464', '1991-10-10', 'Male', 'Mumbai, Maharashtra'),
+(11, 'Geeta', 'Thakur', 'geeta.thakur@example.com', '9922334465', '1988-01-15', 'Female', 'Noida, Uttar Pradesh'),
+(12, 'Anjali', 'Verma', 'anjali.verma@example.com', '9922334466', '1997-12-28', 'Female', 'Bhubaneswar, Odisha'),
+(13, 'Manoj', 'Desai', 'manoj.desai@example.com', '9922334467', '1986-03-03', 'Male', 'Surat, Gujarat'),
+(14, 'Shweta', 'Sharma', 'shweta.sharma@example.com', '9922334468', '1990-07-09', 'Female', 'Nagpur, Maharashtra'),
+(15, 'Rajesh', 'Gupta', 'rajesh.gupta@example.com', '9922334469', '1982-06-11', 'Male', 'Indore, Madhya Pradesh'),
+(16, 'Aarti', 'Patel', 'aarti.patel@example.com', '9922334470', '1995-01-20', 'Female', 'Ahmedabad, Gujarat'),
+(17, 'Kunal', 'Verma', 'kunal.verma@example.com', '9922334471', '1993-08-15', 'Male', 'Jaipur, Rajasthan'),
+(18, 'Simran', 'Singh', 'simran.singh@example.com', '9922334472', '1984-11-25', 'Female', 'Chandigarh, Punjab'),
+(19, 'Mohan', 'Singh', 'mohan.singh@example.com', '9922334473', '1990-05-25', 'Male', 'Kanpur, Uttar Pradesh'),
+(20, 'Laxmi', 'Sharma', 'laxmi.sharma@example.com', '9922334474', '1994-12-18', 'Female', 'Mumbai, Maharashtra'),
+(21, 'Raj', 'Chaudhary', 'raj.chaudhary@example.com', '9922334475', '1991-03-22', 'Male', 'Delhi, Delhi'),
+(22, 'Vandana', 'Patel', 'vandana.patel@example.com', '9922334476', '1985-09-05', 'Female', 'Vadodara, Gujarat'),
+(23, 'Sanjay', 'Yadav', 'sanjay.yadav@example.com', '9922334477', '1992-04-10', 'Male', 'Bhopal, Madhya Pradesh'),
+(24, 'Kavita', 'Singh', 'kavita.singh@example.com', '9922334478', '1996-08-15', 'Female', 'Dehradun, Uttarakhand'),
+(25, 'Ajay', 'Reddy', 'ajay.reddy@example.com', '9922334479', '1987-10-19', 'Male', 'Kochi, Kerala');
+
+
+INSERT INTO Appointments (appointment_id, doctor_id, patient_id, appointment_date, reason, status) VALUES
+(1, 1, 1, '2025-01-15 10:00:00', 'Heart check-up', 'Scheduled'),
+(2, 2, 2, '2025-01-16 14:00:00', 'Skin allergy', 'Scheduled'),
+(3, 3, 3, '2025-01-17 11:00:00', 'Headache and dizziness', 'Completed'),
+(4, 4, 4, '2025-01-18 12:00:00', 'Knee pain', 'Scheduled'),
+(5, 5, 5, '2025-01-19 09:00:00', 'Pediatric consultation', 'Completed'),
+(6, 6, 6, '2025-01-20 10:30:00', 'Pregnancy checkup', 'Cancelled'),
+(7, 7, 7, '2025-01-21 15:00:00', 'Surgical consultation', 'Scheduled'),
+(8, 8, 8, '2025-01-22 16:00:00', 'Ear infection', 'Completed'),
+(9, 9, 9, '2025-01-23 17:00:00', 'X-ray consultation', 'Scheduled'),
+(10, 10, 10, '2025-01-24 13:30:00', 'Cancer treatment', 'Scheduled'),
+(11, 11, 11, '2025-01-25 10:00:00', 'Mental health check', 'Completed'),
+(12, 12, 12, '2025-01-26 14:00:00', 'Dental consultation', 'Scheduled'),
+(13, 13, 13, '2025-01-27 11:00:00', 'Gastrointestinal issue', 'Scheduled'),
+(14, 14, 14, '2025-01-28 09:30:00', 'Urology consultation', 'Completed'),
+(15, 15, 15, '2025-01-29 16:00:00', 'Kidney issues', 'Scheduled'),
+(16, 16, 16, '2025-01-30 11:00:00', 'Eye checkup', 'Completed'),
+(17, 17, 17, '2025-01-31 14:00:00', 'Blood test consultation', 'Scheduled'),
+(18, 18, 18, '2025-02-01 12:00:00', 'Thyroid issue', 'Cancelled'),
+(19, 19, 19, '2025-02-02 15:00:00', 'Joints pain', 'Scheduled'),
+(20, 20, 20, '2025-02-03 09:00:00', 'Cancer treatment', 'Scheduled'),
+(21, 21, 21, '2025-02-04 14:00:00', 'Plastic surgery consultation', 'Completed'),
+(22, 22, 22, '2025-02-05 16:00:00', 'General checkup', 'Scheduled'),
+(23, 23, 23, '2025-02-06 13:00:00', 'Emergency consultation', 'Completed'),
+(24, 24, 24, '2025-02-07 11:30:00', 'Anesthesia consultation', 'Scheduled'),
+(25, 25, 25, '2025-02-08 10:30:00', 'Physical therapy consultation', 'Completed');
+
+INSERT INTO Payments (payment_id, appointment_id, payment_date, payment_amount, payment_method) VALUES
+(1, 1, '2025-01-15', 500.00, 'Credit Card'),
+(2, 2, '2025-01-16', 300.00, 'Cash'),
+(3, 3, '2025-01-17', 1000.00, 'Insurance'),
+(4, 4, '2025-01-18', 200.00, 'Credit Card'),
+(5, 5, '2025-01-19', 1500.00, 'Insurance'),
+(6, 6, '2025-01-20', 0.00, 'Cash'),
+(7, 7, '2025-01-21', 800.00, 'Cash'),
+(8, 8, '2025-01-22', 400.00, 'Credit Card'),
+(9, 9, '2025-01-23', 600.00, 'Insurance'),
+(10, 10, '2025-01-24', 1200.00, 'Credit Card'),
+(11, 11, '2025-01-25', 700.00, 'Cash'),
+(12, 12, '2025-01-26', 300.00, 'Credit Card'),
+(13, 13, '2025-01-27', 500.00, 'Insurance'),
+(14, 14, '2025-01-28', 400.00, 'Cash'),
+(15, 15, '2025-01-29', 900.00, 'Credit Card'),
+(16, 16, '2025-01-30', 200.00, 'Insurance'),
+(17, 17, '2025-01-31', 600.00, 'Cash'),
+(18, 18, '2025-02-01', 0.00, 'Credit Card'),
+(19, 19, '2025-02-02', 350.00, 'Cash'),
+(20, 20, '2025-02-03', 1000.00, 'Insurance'),
+(21, 21, '2025-02-04', 800.00, 'Credit Card'),
+(22, 22, '2025-02-05', 250.00, 'Cash'),
+(23, 23, '2025-02-06', 450.00, 'Insurance'),
+(24, 24, '2025-02-07', 500.00, 'Credit Card'),
+(25, 25, '2025-02-08', 700.00, 'Cash');
+
+#======================================================================================================================================
+#1. Find the total apointments for each doctor?
+select a.doctor_id,concat(d.first_name, d.last_Name) as Doctor ,count(a.appointment_id) as TotalApointments from appointments a join doctors d on a.doctor_id = d.doctor_id group by a.doctor_id order by TotalApointments desc;
+
+#2. List all paitents who have an appointment with a specific doctor?
+select p.*,a.appointment_id as AppointmentOF,concat(d.first_name,d.last_name)as Doctor from appointments a join patients p on a.patient_id = p.patient_id join doctors d on a.doctor_id = d.doctor_id where a.status = "Scheduled";
+
+#3. Find the number of appointments scheduled in a specific department?
+select dp.department_id, dp.department_name, count(a.appointment_id) as appointments from departments dp join doctors d on dp.department_id = d.department_id join appointments a on a.doctor_id = d.doctor_id group by dp.department_id;
+
+#4. Find the most popular Speciality Based on number of Appointments?
+select a.doctor_id,concat(d.first_name, d.last_Name) as Doctor ,count(a.appointment_id) as TotalApointments, s.specialty_name as Specialist from appointments a join doctors d on a.doctor_id = d.doctor_id join specialties s on d.specialty_id = s.specialty_id group by a.doctor_id order by TotalApointments desc limit 1;
+
+#5. Get the total payment Amount for all completed appointments?
+select a.appointment_id,sum(p.payment_amount) from payments p join appointments a on p.appointment_id = a.appointment_id where a.Status = "completed" group by p.appointment_id;
+
+#6. Find the number of patients seen by each doctor?
+select d.doctor_id, d.first_name, count(a.patient_id) AS patients from appointments a join doctors d on a.doctor_id = d.doctor_id join patients p on a.patient_id = p.patient_id group by d.doctor_id;
+
+#7. List all patients who have missed their appointments?
+select concat(p.first_name,p.last_name),a.appointment_id as Appointment, a.Status as Status from appointments a left join patients p on a.patient_id = p.patient_id where a.Status = "cancelled";
+
+#8. Find the total number of appointments for each Status?
+select a.status as STATUS , count(a.appointment_id) as appointments from appointments a group by STATUS;
+
+#9. Get the average payment Amount for completed appointments?
+select p.appointment_id as appointments, avg(p.payment_amount) as AverageAmount from payments p join appointments a on p.appointment_id = a.appointment_id where a.status = "completed" group by appointments;
+
+#10. Find the Doctor with the highest number of appointments?
+select d.first_name as Doctor, count(a.appointment_id) as Appointments from doctors d join appointments a on d.doctor_id = a.doctor_id group by a.doctor_id order by Appointments desc limit 1;
+
+
