@@ -1,4 +1,148 @@
+create database university;
+use university;
+create table students(
+student_id int primary key auto_increment,
+first_name varchar(100) not null,
+last_name varchar(100) not null,
+email varchar(100) not null unique,
+phone varchar(20) not null ,
+date_of_birth date not null,
+enrollment_date date not null,
+department_id int ,
+foreign key(department_id) references departments(department_id)
+);
 
+
+INSERT INTO students (first_name, last_name, email, phone, date_of_birth, enrollment_date, department_id) VALUES
+('Aarav', 'Patel', 'aarav.patel001@gmail.com', '9876543210', '2000-01-01', '2023-09-01', 1),
+('Saanvi', 'Sharma', 'saanvi.sharma123@gmail.com', '9876543211', '1999-05-14', '2023-09-01', 2),
+('Vihaan', 'Iyer', 'vihaan.iyer456@gmail.com', '9876543212', '2001-07-22', '2023-09-01', 3),
+('Ananya', 'Verma', 'ananya.verma789@gmail.com', '9876543213', '2000-12-25', '2023-09-01', 4),
+('Arjun', 'Kumar', 'arjun.kumar111@gmail.com', '9876543214', '1998-04-18', '2023-09-01', 5),
+('Madhavi', 'Reddy', 'madhavi.reddy222@gmail.com', '9876543215', '1999-02-03', '2023-09-01', 1),
+('Ishaan', 'Gupta', 'ishaan.gupta333@gmail.com', '9876543216', '2000-09-09', '2023-09-01', 2),
+('Pooja', 'Singh', 'pooja.singh444@gmail.com', '9876543217', '1999-11-15', '2023-09-01', 3),
+('Ravi', 'Deshmukh', 'ravi.deshmukh555@gmail.com', '9876543218', '2000-03-25', '2023-09-01', 4),
+('Maya', 'Menon', 'maya.menon666@gmail.com', '9876543219', '2001-06-11', '2023-09-01', 5),
+('Kabir', 'Das', 'kabir.das777@gmail.com', '9876543220', '1998-12-20', '2023-09-01', 1),
+('Aditi', 'Mishra', 'aditi.mishra888@gmail.com', '9876543221', '2001-02-17', '2023-09-01', 2),
+('Pranav', 'Joshi', 'pranav.joshi999@gmail.com', '9876543222', '1999-08-30', '2023-09-01', 3),
+('Srishti', 'Pandey', 'srishti.pandey010@gmail.com', '9876543223', '2000-11-04', '2023-09-01', 4),
+('Kunal', 'Bhatia', 'kunal.bhatia111@gmail.com', '9876543224', '2001-01-29', '2023-09-01', 5),
+('Shreya', 'Rao', 'shreya.rao222@gmail.com', '9876543225', '1998-10-14', '2023-09-01', 1),
+('Dev', 'Kumar', 'dev.kumar333@gmail.com', '9876543226', '2000-05-12', '2023-09-01', 2),
+('Neha', 'Rathi', 'neha.rathi444@gmail.com', '9876543227', '2001-04-09', '2023-09-01', 3),
+('Siddharth', 'Nair', 'siddharth.nair555@gmail.com', '9876543228', '2000-08-17', '2023-09-01', 4),
+('Alisha', 'Choudhary', 'alisha.choudhary666@gmail.com', '9876543229', '2001-09-21', '2023-09-01', 5),
+('Tarun', 'Singh', 'tarun.singh777@gmail.com', '9876543230', '1999-03-04', '2023-09-01', 1),
+('Radhika', 'Tiwari', 'radhika.tiwari888@gmail.com', '9876543231', '2001-12-02', '2023-09-01', 2),
+('Aman', 'Gupta', 'aman.gupta999@gmail.com', '9876543232', '1999-07-26', '2023-09-01', 3),
+('Priya', 'Chawla', 'priya.chawla010@gmail.com', '9876543233', '2000-10-13', '2023-09-01', 4),
+('Aravind', 'Kumar', 'aravind.kumar111@gmail.com', '9876543234', '2001-05-20', '2023-09-01', 5);
+
+
+create table courses(
+course_id int primary key auto_increment,
+course_name varchar(100) not null,
+department_id int ,
+foreign key (department_id) references departments(department_id),
+professor_id int ,
+foreign key (professor_id) references professors(professor_id),
+credits int not null
+);
+
+INSERT INTO courses (course_id, courses_name, department_id, professor_id, credits) VALUES
+(NULL, 'Human Resources Management', 1, 11, 3),
+(NULL, 'Financial Accounting', 2, 12, 4),
+(NULL, 'Mechanical Engineering', 3, 13, 3),
+(NULL, 'Digital Marketing', 4, 14, 4),
+(NULL, 'Sales Strategy', 5, 15, 3),
+(NULL, 'IT Infrastructure', 6, 16, 3),
+(NULL, 'Business Operations', 7, 17, 4),
+(NULL, 'Corporate Law', 8, 18, 3),
+(NULL, 'R&D Innovations', 9, 19, 4),
+(NULL, 'Product Management Fundamentals', 10, 20, 3);
+
+create table departments (
+department_id int primary key auto_increment,
+department_name varchar(100) not null
+ );
+ 
+ 
+ INSERT INTO departments (iddepartment_id, department_name) VALUES
+(NULL, 'Human Resources'),
+(NULL, 'Finance'),
+(NULL, 'Engineering'),
+(NULL, 'Marketing'),
+(NULL, 'Sales'),
+(NULL, 'Customer Support'),
+(NULL, 'IT'),
+(NULL, 'Operations'),
+(NULL, 'Legal'),
+(NULL, 'Research and Development'),
+(NULL, 'Product Management'),
+(NULL, 'Design'),
+(NULL, 'Quality Assurance'),
+(NULL, 'Administration'),
+(NULL, 'Procurement');
+
+ 
+ select * from departments;
+ 
+ create table professors(
+ professor_id int primary key auto_increment,
+ first_name varchar(100) not null,
+ last_name varchar(100) not null,
+ email varchar(100) not null unique,
+ phone varchar(20) not null
+ );
+ 
+INSERT INTO professors (idprofessor_id, first_name, last_name, email, phone) VALUES
+(NULL, 'John', 'Doe', 'john.doe@example.com', '1234567890'),
+(NULL, 'Jane', 'Smith', 'jane.smith@example.com', '2345678901'),
+(NULL, 'Michael', 'Johnson', 'michael.johnson@example.com', '3456789012'),
+(NULL, 'Emily', 'Davis', 'emily.davis@example.com', '4567890123'),
+(NULL, 'William', 'Brown', 'william.brown@example.com', '5678901234'),
+(NULL, 'Linda', 'Wilson', 'linda.wilson@example.com', '6789012345'),
+(NULL, 'James', 'Taylor', 'james.taylor@example.com', '7890123456'),
+(NULL, 'Patricia', 'Anderson', 'patricia.anderson@example.com', '8901234567'),
+(NULL, 'Robert', 'Thomas', 'robert.thomas@example.com', '9012345678'),
+(NULL, 'Barbara', 'Jackson', 'barbara.jackson@example.com', '1234567809');
+ 
+ select * from professors;
+ 
+ 
+ create table enrollments(
+ enrollment_id int primary key auto_increment,
+ student_id int ,
+ foreign key (student_id) references students(student_id),
+ course_id int ,
+ foreign key(course_id) references courses(course_id),
+ enrollment_date date not null,
+ grade varchar(5) not null
+ );
+ 
+ INSERT INTO enrollments (student_id, course_id, enrollment_date, grade) VALUES
+(1, 1, '2025-01-01', 'A'),
+(2, 2, '2025-01-02', 'B'),
+(3, 3, '2025-01-03', 'A'),
+(4, 4, '2025-01-04', 'B'),
+(5, 5, '2025-01-05', 'A'),
+(6, 6, '2025-01-06', 'C'),
+(7, 7, '2025-01-07', 'B'),
+(8, 8, '2025-01-08', 'A'),
+(9, 9, '2025-01-09', 'C'),
+(10, 10, '2025-01-10', 'B'),
+(11, 1, '2025-01-11', 'A'),
+(12, 2, '2025-01-12', 'B'),
+(13, 3, '2025-01-13', 'A'),
+(14, 4, '2025-01-14', 'B'),
+(15, 5, '2025-01-15', 'A'),
+(16, 6, '2025-01-16', 'C'),
+(17, 7, '2025-01-17', 'B'),
+(18, 8, '2025-01-18', 'A'),
+(19, 9, '2025-01-19', 'C'),
+(20, 10, '2025-01-20', 'B');
 
 1.find the total number of students in each department?
 ANS: select d.department_name, count(s.student_id) as Total_Student from departments as d left join Students as s on d.iddepartment_id = s.department_id group by d.iddepartment_id,d.department_name order by Total_Student desc;
