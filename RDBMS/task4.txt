@@ -1,0 +1,170 @@
+#create database HR_Management;
+-- use hr_management;
+-- CREATE TABLE `hr_management`.`departments` (
+--   `department_id` INT NOT NULL AUTO_INCREMENT,
+--   `department_name` VARCHAR(100) NOT NULL,
+--   PRIMARY KEY (`department_id`));
+
+
+-- CREATE TABLE `hr_management`.`employees` (
+--   `Employee_id` INT NOT NULL AUTO_INCREMENT,
+--   `first_name` VARCHAR(45) NOT NULL,
+--   `last_name` VARCHAR(45) NOT NULL,
+--   `Email` VARCHAR(255) NOT NULL,
+--   `phone` VARCHAR(20) NOT NULL,
+--   `hireDate` DATE NOT NULL,
+--   `department_id` INT NOT NULL,
+--   `salary` DOUBLE NOT NULL,
+--   PRIMARY KEY (`Employee_id`),
+--   UNIQUE INDEX `Email_UNIQUE` (`Email` ASC) VISIBLE,
+--   INDEX `department_id_idx` (`department_id` ASC) VISIBLE,
+--   CONSTRAINT `department_id`
+--     FOREIGN KEY (`department_id`)
+--     REFERENCES `hr_management`.`departments` (`department_id`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION);
+
+-- ALTER TABLE `hr_management`.`employees` 
+-- ADD COLUMN `managerID` INT NOT NULL AFTER `salary`,
+-- ADD INDEX `managerID_idx` (`managerID` ASC) VISIBLE;
+-- ;
+-- ALTER TABLE `hr_management`.`employees` 
+-- ADD CONSTRAINT `managerID`
+--   FOREIGN KEY (`managerID`)
+--   REFERENCES `hr_management`.`employees` (`Employee_id`)
+--   ON DELETE NO ACTION
+--   ON UPDATE NO ACTION;
+
+
+-- CREATE TABLE `hr_management`.`performancereviews` (
+--   `review_id` INT NOT NULL AUTO_INCREMENT,
+--   `employee_id` INT NOT NULL,
+--   `reviewDate` DATETIME NOT NULL,
+--   `performanceScore` VARCHAR(100) NOT NULL,
+--   `comments` VARCHAR(255) NULL,
+--   PRIMARY KEY (`review_id`),
+--   INDEX `employee_id_idx` (`employee_id` ASC) VISIBLE,
+--   CONSTRAINT `employee_id`
+--     FOREIGN KEY (`employee_id`)
+--     REFERENCES `hr_management`.`employees` (`Employee_id`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION);
+
+-- CREATE TABLE `hr_management`.`payroll` (
+--   `payroll_id` INT NOT NULL,
+--   `EmployeeID` INT NOT NULL,
+--   `paymentDate` DATETIME NOT NULL,
+--   `amount` DOUBLE NOT NULL,
+--   `paymentMethod` VARCHAR(100) NOT NULL,
+--   PRIMARY KEY (`payroll_id`),
+--   INDEX `EmployeeID_idx` (`EmployeeID` ASC) VISIBLE,
+--   CONSTRAINT `EmployeeID`
+--     FOREIGN KEY (`EmployeeID`)
+--     REFERENCES `hr_management`.`employees` (`Employee_id`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION);
+
+INSERT INTO `hr_management`.`departments` (`department_name`) VALUES
+('Human Resources'),
+('Finance'),
+('Engineering'),
+('Marketing'),
+('Sales'),
+('IT Support'),
+('Product Development'),
+('Legal'),
+('Customer Support'),
+('Business Development'),
+('Quality Assurance'),
+('Operations'),
+('Research and Development'),
+('Supply Chain'),
+('Admin'),
+('Procurement'),
+('Public Relations'),
+('Internal Audit'),
+('Training and Development'),
+('Logistics');
+
+INSERT INTO `hr_management`.`employees` (`first_name`, `last_name`, `Email`, `phone`, `hireDate`, `department_id`, `salary`, `manager_ID`) VALUES
+('Raj', 'Sharma', 'raj.sharma@example.com', '9876543210', '2020-01-01', 1, 60000, 1),
+('Aditi', 'Mehta', 'aditi.mehta@example.com', '9876543211', '2019-03-15', 2, 70000, 2),
+('Vikram', 'Kumar', 'vikram.kumar@example.com', '9876543212', '2018-06-20', 3, 75000,3),
+('Neha', 'Verma', 'neha.verma@example.com', '9876543213', '2021-11-10', 4, 55000, 4),
+('Sandeep', 'Singh', 'sandeep.singh@example.com', '9876543214', '2017-08-22', 5, 80000, 2),
+('Priya', 'Joshi', 'priya.joshi@example.com', '9876543215', '2022-09-30', 6, 48000, 5),
+('Amit', 'Yadav', 'amit.yadav@example.com', '9876543216', '2016-12-12', 7, 90000, 6),
+('Sonia', 'Patel', 'sonia.patel@example.com', '9876543217', '2020-04-14', 8, 67000,5),
+('Anil', 'Rajput', 'anil.rajput@example.com', '9876543218', '2018-02-11', 9, 53000, 7),
+('Riya', 'Gupta', 'riya.gupta@example.com', '9876543219', '2021-05-20', 10, 59000, 3),
+('Vishal', 'Chopra', 'vishal.chopra@example.com', '9876543220', '2019-07-07', 11, 62000, 8),
+('Kiran', 'Patel', 'kiran.patel@example.com', '9876543221', '2015-10-30', 12, 72000, 1),
+('Ravi', 'Nair', 'ravi.nair@example.com', '9876543222', '2014-03-25', 13, 95000, 6),
+('Simran', 'Bhatia', 'simran.bhatia@example.com', '9876543223', '2020-12-15', 14, 60000, 9),
+('Vikas', 'Kaur', 'vikas.kaur@example.com', '9876543224', '2023-06-10', 15, 77000, 10),
+('Tina', 'Singh', 'tina.singh@example.com', '9876543225', '2018-01-30', 16, 69000, 11),
+('Rahul', 'Deshmukh', 'rahul.deshmukh@example.com', '9876543226', '2019-09-09', 17, 55000, 12),
+('Sunil', 'Patil', 'sunil.patil@example.com', '9876543227', '2017-02-15', 18, 64000, 12),
+('Geeta', 'Reddy', 'geeta.reddy@example.com', '9876543228', '2021-01-22', 19, 48000, 13),
+('Deepak', 'Shukla', 'deepak.shukla@example.com', '9876543229', '2020-10-25', 20, 51000,19 );
+
+INSERT INTO `hr_management`.`performancereviews` (`employee_id`, `reviewDate`, `performanceScore`, `comments`) VALUES
+(1, '2024-01-15 09:00:00', 'A', 'Excellent team player.'),
+(2, '2024-02-20 10:00:00', 'B', 'Good work but needs to improve communication.'),
+(13, '2024-03-30 11:00:00', 'A', 'Outstanding performance.'),
+(4, '2024-04-25 12:00:00', 'B+', 'Consistently meets expectations.'),
+(15, '2024-05-15 14:00:00', 'A-', 'Leadership qualities are strong.'),
+(6, '2024-06-05 09:00:00', 'C', 'Needs to improve technical skills.'),
+(17, '2024-07-20 15:00:00', 'A', 'Excellent contribution to projects.'),
+(8, '2024-08-10 10:00:00', 'B-', 'Good efforts, but needs better time management.'),
+(9, '2024-09-01 13:00:00', 'B+', 'Meets expectations but can improve in customer relations.'),
+(10, '2024-09-20 11:00:00', 'A', 'Exceeds expectations consistently.'),
+(11, '2024-10-10 14:00:00', 'A-', 'Great problem-solving skills.'),
+(12, '2024-11-05 09:00:00', 'C+', 'Needs more training on new technologies.'),
+(10, '2024-12-15 13:00:00', 'A', 'Exceptional leadership and vision.'),
+(14, '2024-01-25 10:00:00', 'B', 'Has room for improvement in project execution.'),
+(16, '2024-02-28 12:00:00', 'A+', 'A true asset to the team.'),
+(16, '2024-03-15 15:00:00', 'B', 'Solid performer but needs more initiative.'),
+(17, '2024-04-10 09:00:00', 'A-', 'Very reliable and consistent performer.'),
+(18, '2024-05-05 11:00:00', 'B+', 'Impressive work ethic.'),
+(19, '2024-06-01 13:00:00', 'C-', 'Requires significant improvement in performance.'),
+(2, '2024-07-10 10:00:00', 'A', 'Great attention to detail and process optimization.');
+
+INSERT INTO `hr_management`.`payroll` (`payroll_id`, `EmployeeID`, `paymentDate`, `amount`, `paymentMethod`) VALUES
+(1, 1, '2024-01-01 12:00:00', 60000, 'Bank Transfer'),
+(2, 2, '2024-02-01 12:00:00', 70000, 'Cheque'),
+(3, 3, '2024-03-01 12:00:00', 75000, 'Bank Transfer'),
+(4, 4, '2024-04-01 12:00:00', 55000, 'Cash'),
+(5, 5, '2024-05-01 12:00:00', 80000, 'Bank Transfer'),
+(6, 6, '2024-06-01 12:00:00', 48000, 'Cheque'),
+(7, 7, '2024-07-01 12:00:00', 90000, 'Bank Transfer'),
+(8, 8, '2024-08-01 12:00:00', 67000, 'Cash'),
+(9, 9, '2024-09-01 12:00:00', 53000, 'Cheque'),
+(10, 10, '2024-10-01 12:00:00', 59000, 'Bank Transfer'),
+(11, 11, '2024-11-01 12:00:00', 62000, 'Cash'),
+(12, 12, '2024-12-01 12:00:00', 72000, 'Bank Transfer'),
+(13, 13, '2025-01-01 12:00:00', 95000, 'Cheque'),
+(14, 14, '2025-02-01 12:00:00', 60000, 'Bank Transfer'),
+(15, 15, '2025-03-01 12:00:00', 77000, 'Cash'),
+(16, 16, '2025-04-01 12:00:00', 69000, 'Cheque'),
+(17, 17, '2025-05-01 12:00:00', 55000, 'Bank Transfer'),
+(18, 18, '2025-06-01 12:00:00', 64000, 'Cash'),
+(19, 19, '2025-07-01 12:00:00', 48000, 'Cheque'),
+(20, 20, '2025-08-01 12:00:00', 51000, 'Bank Transfer');
+
+#1 select e.first_name,e.phone,e.hiredate from employees e where e.hiredate > '2023-01-01';
+#2 select d.department_name as department , sum(p.amount) as total_amount from departments d join employees e on d.department_id = e.department_id join payroll p on e.employees_id = p.employeeID group by d.department_id,d.department_name;
+#3 select e.first_name from employees e where e.employees_id != e.manager_id;
+#4 select d.department_name,e.first_name,e.last_name,max(e.salary) as max_salary from employees e join departments d on e.department_id = d.department_id group by d.department_id,e.first_name,e.last_name order by max_salary desc limit 1;
+#5 SELECT pr.employee_id, MAX(pr.reviewDate) AS most_recent_review FROM performancereviews pr GROUP BY pr.employee_id;
+#7 a. SELECT e.Employees_id, e.first_name, e.last_name, e.Email, pr.performanceScore FROM employees e JOIN performancereviews pr ON e.Employees_id = pr.employee_id WHERE pr.performanceScore = 'Excellent';
+#7 b. SELECT p.paymentMethod, COUNT(p.paymentMethod) AS usage_count FROM payroll p GROUP BY p.paymentMethod ORDER BY usage_count DESC LIMIT 1;
+#6 select d.department_id, d.department_name,count(e.employees_id)as employees from employees e join departments d on e.department_id = d.department_id group by e.department_id;
+#8 select d.department_name,e.first_name,e.last_name,e.salary as max_salary from employees e join departments d on e.department_id = d.department_id order by max_salary desc limit 5;
+#9 select e.employees_id,e.first_name,e.last_name from employees e where e.employees_id = e.manager_id;
+
+ 
+
+
+
+
