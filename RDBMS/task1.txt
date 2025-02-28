@@ -1,5 +1,5 @@
-create database university;
-use university;
+create database universitydb;
+use universitydb;
 create table students(
 student_id int primary key auto_increment,
 first_name varchar(100) not null,
@@ -144,61 +144,60 @@ INSERT INTO professors (idprofessor_id, first_name, last_name, email, phone) VAL
 (19, 9, '2025-01-19', 'C'),
 (20, 10, '2025-01-20', 'B');
 
-1.find the total number of students in each department?
-ANS: select d.department_name, count(s.student_id) as Total_Student from departments as d left join Students as s on d.iddepartment_id = s.department_id group by d.iddepartment_id,d.department_name order by Total_Student desc;
+-- 1.find the total number of students in each department?
+-- ANS: select d.department_name, count(s.student_id) as Total_Student from departments as d left join Students as s on d.iddepartment_id = s.department_id group by d.iddepartment_id,d.department_name order by Total_Student desc;
 
-2.List All courses taught by a specific professor?
-ANS: select p.first_name, p.last_name,c.courses_name from courses as c inner join professors as p on c.professor_id = p.idprofessor_id;
+-- 2.List All courses taught by a specific professor?
+-- ANS: select p.first_name, p.last_name,c.courses_name from courses as c inner join professors as p on c.professor_id = p.idprofessor_id;
 
-3.Find the Avg Grade of Students in each course?
-ANS: SELECT c.courses_name AS Course_Name,AVG(CASE 
-            WHEN e.grade = 'A' THEN 85
-            WHEN e.grade = 'B' THEN 75
-            WHEN e.grade = 'C' THEN 65
-            WHEN e.grade = 'D' THEN 45
-            ELSE NULL
-        END
-    ) AS Average_Grade FROM courses c JOIN enrollments e ON c.course_id = e.course_id GROUP BY c.course_id, c.courses_name ORDER BY Average_Grade DESC;
+-- 3.Find the Avg Grade of Students in each course?
+-- ANS: SELECT c.courses_name AS Course_Name,AVG(CASE 
+--             WHEN e.grade = 'A' THEN 85
+--             WHEN e.grade = 'B' THEN 75
+--             WHEN e.grade = 'C' THEN 65
+--             WHEN e.grade = 'D' THEN 45
+--             ELSE NULL
+--         END
+--     ) AS Average_Grade FROM courses c JOIN enrollments e ON c.course_id = e.course_id GROUP BY c.course_id, c.courses_name ORDER BY Average_Grade DESC;
 
-4.List All Students Who have not enrolled in any courses?
-Ans: select s.first_name,e.enrollment_id,s.student_id from students as s left join enrollments as e on s.student_id = e.student_id where e.student_id is null;
+-- 4.List All Students Who have not enrolled in any courses?
+-- Ans: select s.first_name,e.enrollment_id,s.student_id from students as s left join enrollments as e on s.student_id = e.student_id where e.student_id is null;
 
-5.Find the Number of Courses Offered by Each Department?
-ANS : SELECT d.department_name AS Department, COUNT(c.course_id) AS Total_Courses FROM departments d LEFT JOIN courses c ON d.iddepartment_id = c.department_id GROUP BY d.iddepartment_id d.department_name ORDER BY Total_Courses DESC;
+-- 5.Find the Number of Courses Offered by Each Department?
+-- ANS : SELECT d.department_name AS Department, COUNT(c.course_id) AS Total_Courses FROM departments d LEFT JOIN courses c ON d.iddepartment_id = c.department_id GROUP BY d.iddepartment_id d.department_name ORDER BY Total_Courses DESC;
 
-6.List All Students Who have Taken a specific course?
-ANS : SELECT s.student_id, s.first_name, s.last_name, s.email, s.phone, s.department_id, c.courses_name AS Course_Name FROM students s JOIN enrollments e ON s.student_id = e.student_id
-JOIN courses c ON e.course_id = c.course_id WHERE c.course_id = 21;
+-- #6.List All Students Who have Taken a specific course?
+-- #ANS :SELECT s.student_id, s.first_name, s.last_name, s.email, s.phone, s.department_id, c.courses_name AS Course_Name FROM students s JOIN enrollments e ON s.student_id = e.student_id JOIN courses c ON e.course_id = c.course_id WHERE c.course_id = 21;
 
-7.Find the most popular course Based on Enrollment Numbers?
-ANS: SELECT c.courses_name AS Course_Name,COUNT(e.enrollment_id) AS Total_Enrollments FROM courses c JOIN enrollments e ON c.course_id = e.course_id GROUP BY c.course_id, c.courses_name
-ORDER BY Total_Enrollments DESC LIMIT 1;
+-- 7.Find the most popular course Based on Enrollment Numbers?
+-- ANS: SELECT c.courses_name AS Course_Name,COUNT(e.enrollment_id) AS Total_Enrollments FROM courses c JOIN enrollments e ON c.course_id = e.course_id GROUP BY c.course_id, c.courses_name
+-- ORDER BY Total_Enrollments DESC LIMIT 1;
 
-8.Find the average number of credits per student in a department?
-ANS: SELECT d.department_name AS Department,AVG(c.credits) AS Avg_Credits_Per_Student FROM students s JOIN departments d ON s.department_id = d.iddepartment_id JOIN enrollments e ON s.student_id = e.student_id JOIN courses c ON e.course_id = c.course_id GROUP BY d.iddepartment_id, d.department_name;
+-- 8.Find the average number of credits per student in a department?
+-- ANS: SELECT d.department_name AS Department,AVG(c.credits) AS Avg_Credits_Per_Student FROM students s JOIN departments d ON s.department_id = d.iddepartment_id JOIN enrollments e ON s.student_id = e.student_id JOIN courses c ON e.course_id = c.course_id GROUP BY d.iddepartment_id, d.department_name;
 
-9.List all professors eho teach in more than one department?
-Ans: SELECT p.idprofessor_id AS Professor_ID,CONCAT(p.first_name, ' ', p.last_name) AS Professor_Name,COUNT(DISTINCT c.department_id) AS Total_Departments
-FROM professors p JOIN courses c ON p.idprofessor_id = c.professor_id GROUP BY p.idprofessor_id, p.first_name, p.last_name HAVING COUNT(DISTINCT c.department_id) > 1;
+-- 9.List all professors eho teach in more than one department?
+-- Ans: SELECT p.idprofessor_id AS Professor_ID,CONCAT(p.first_name, ' ', p.last_name) AS Professor_Name,COUNT(DISTINCT c.department_id) AS Total_Departments
+-- FROM professors p JOIN courses c ON p.idprofessor_id = c.professor_id GROUP BY p.idprofessor_id, p.first_name, p.last_name HAVING COUNT(DISTINCT c.department_id) > 1;
 
-10.Get Highest and lowest grade in a specific course?
-Ans: SELECT c.course_id,c.courses_name,
-    MAX(
-        CASE 
-            WHEN e.grade = 'A' THEN 80 
-            WHEN e.grade = 'B' THEN 60 
-            WHEN e.grade = 'C' THEN 40
-            WHEN e.grade = 'D' THEN 33
-            ELSE NULL 
-        END
-    ) AS highest_grade,
-    MIN(
-        CASE 
-			WHEN e.grade = 'A' THEN 80 
-            WHEN e.grade = 'B' THEN 60 
-            WHEN e.grade = 'C' THEN 40
-            WHEN e.grade = 'D' THEN 33 
-            ELSE NULL 
-        END
-    ) AS lowest_grade
-FROM courses AS c LEFT JOIN enrollments AS e ON c.course_id = e.course_id WHERE c.courses_name = 'Human Resources Management' GROUP BY c.course_id, c.courses_name; 
+-- 10.Get Highest and lowest grade in a specific course?
+-- Ans: SELECT c.course_id,c.courses_name,
+--     MAX(
+--         CASE 
+--             WHEN e.grade = 'A' THEN 80 
+--             WHEN e.grade = 'B' THEN 60 
+--             WHEN e.grade = 'C' THEN 40
+--             WHEN e.grade = 'D' THEN 33
+--             ELSE NULL 
+--         END
+--     ) AS highest_grade,
+--     MIN(
+--         CASE 
+-- 			WHEN e.grade = 'A' THEN 80 
+--             WHEN e.grade = 'B' THEN 60 
+--             WHEN e.grade = 'C' THEN 40
+--             WHEN e.grade = 'D' THEN 33 
+--             ELSE NULL 
+--         END
+--     ) AS lowest_grade
+-- FROM courses AS c LEFT JOIN enrollments AS e ON c.course_id = e.course_id WHERE c.courses_name = 'Human Resources Management' GROUP BY c.course_id, c.courses_name; 
