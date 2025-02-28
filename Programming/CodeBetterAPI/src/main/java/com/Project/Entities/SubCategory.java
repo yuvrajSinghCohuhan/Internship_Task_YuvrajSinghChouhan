@@ -19,88 +19,83 @@ import jakarta.persistence.TemporalType;
 
 @Entity
 public class SubCategory {
-	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	@Column(name = "subcategory_id")
-	private String id;
-//	private int category_id;
-	@Column(name = "subcategory_name")
-	private String subcategoryName;
-	@CreationTimestamp
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(updatable = false) // Prevent updates to created_at
-	private Date created_at;
-	@UpdateTimestamp
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date updated_at;
-	@ManyToOne
-	@JoinColumn(name = "category_id", nullable = false)
-	@JsonBackReference
-	private Category category;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "subcategory_id")
+    private String id;
 
-	public SubCategory() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    @Column(name = "subcategory_name")
+    private String subcategoryName;
 
-	public SubCategory(String subcategoryName, Date created_at, Date updated_at, Category category) {
-		super();
-		this.subcategoryName = subcategoryName;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
-		this.category = category;
-	}
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(updatable = false) // Prevent updates to created_at
+    private Date created_at;
 
-	public String getId() {
-		return id;
-	}
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updated_at;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    @ManyToOne
+    @JoinColumn(name = "id", nullable = false)
+    @JsonBackReference
+    private Category category;
 
-	public String getSubcategoryName() {
-		return subcategoryName;
-	}
+    public SubCategory() {
+        super();
+    }
 
-	public void setSubcategoryName(String subcategoryName) {
-		this.subcategoryName = subcategoryName;
-	}
+    public SubCategory(String subcategoryName, Date created_at, Date updated_at, Category category) {
+        super();
+        this.subcategoryName = subcategoryName;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+        this.category = category;
+    }
 
-	public Date getCreated_at() {
-		return created_at;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public Date getUpdated_at() {
-		return updated_at;
-	}
+    public String getSubcategoryName() {
+        return subcategoryName;
+    }
 
-	public void setUpdated_at(Date updated_at) {
-		this.updated_at = updated_at;
-	}
+    public void setSubcategoryName(String subcategoryName) {
+        this.subcategoryName = subcategoryName;
+    }
 
-	public Category getCategory() {
-		return category;
-	}
+    public Date getCreated_at() {
+        return created_at;
+    }
 
-	public void setCategory(Category category) {
-		this.category = category;
-	}
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
+    }
 
-	@Override
-	public String toString() {
-		return "SubCategory [id=" + id + ", subcategoryName=" + subcategoryName + ", created_at=" + created_at
-				+ ", updated_at=" + updated_at + ", category=" + category + "]";
-	}
+    public Date getUpdated_at() {
+        return updated_at;
+    }
 
-	public void setCategory(SubCategory subCategory) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void setUpdated_at(Date updated_at) {
+        this.updated_at = updated_at;
+    }
 
+    public Category getCategory() {
+        return category;
+    }
 
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return "SubCategory [id=" + id + ", subcategoryName=" + subcategoryName + ", created_at=" + created_at
+                + ", updated_at=" + updated_at + ", category=" + category + "]";
+    }
 }

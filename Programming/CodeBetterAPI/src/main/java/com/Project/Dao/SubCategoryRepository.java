@@ -7,13 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.Project.Entities.SubCategory;
 
-public interface SubCategoryRepository extends JpaRepository<SubCategory, String>  {
+public interface SubCategoryRepository extends JpaRepository<SubCategory, String> {
 
-	public Optional findById(String id);
+    public Optional<SubCategory> findById(String id);
 
-	public List<SubCategory> findByCategoryId(String id);
+    public List<SubCategory> findByCategoryId(String id);
 
-	public void deleteByCategoryId(String categoryId);
-	
-
+    public void deleteByCategoryId(String categoryId);
 }

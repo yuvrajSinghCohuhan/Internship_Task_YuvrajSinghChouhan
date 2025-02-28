@@ -16,9 +16,9 @@ import jakarta.persistence.TemporalType;
 @Entity
 public class Category {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int c_id;
-	private String c_name;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private String id;
+	private String name;
 	@CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(updatable = false)  // Prevent updates to created_at
@@ -28,20 +28,20 @@ public class Category {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updated_at;
 
-	public int getC_id() {
-		return c_id;
+	public String getId() {
+		return id;
 	}
 
-	public void setC_id(int c_id) {
-		this.c_id = c_id;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getC_name() {
-		return c_name;
+	public String getName() {
+		return name;
 	}
 
-	public void setC_name(String c_name) {
-		this.c_name = c_name;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Date getCreated_at() {
@@ -65,18 +65,20 @@ public class Category {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Category(String c_name, Date created_at, Date updated_at) {
+	public Category(String name) {
 		super();
-		this.c_name = c_name;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
+		this.name = name;
 	}
 
 	@Override
 	public String toString() {
-		return "Category [c_id=" + c_id + ", c_name=" + c_name + ", created_at=" + created_at + ", updated_at="
-				+ updated_at + "]";
+		return "Category [id=" + id + ", name=" + name + ", created_at=" + created_at + ", updated_at=" + updated_at
+				+ "]";
 	}
+
+	
+
+
     
     
     

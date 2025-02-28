@@ -13,65 +13,46 @@ import com.Project.Entities.SubCategory;
 
 @Component
 public class SubCategoryService {
-	
-	@Autowired
-	private SubCategoryRepository sr;
-	@Autowired
-	private CategoryDao cr;
 
-	public List<SubCategory> addSubCategory(List<SubCategory> sc) {
-		// TODO Auto-generated method stub
-		List<SubCategory> ls = sr.saveAll(sc);
-		return ls;
-	}
+    @Autowired
+    private SubCategoryRepository sr;
 
-	public SubCategory addSubcategoryById(SubCategory sc,String id) {
+    @Autowired
+    private CategoryDao cr;
 
-		Optional<SubCategory> op = sr.findById(id);
-;
-		if (op.isPresent()) {
-			sc.setCategory(op.get());
-//			sr.save(sc);
-			return sr.save(sc);
-		} else {
-			throw new RuntimeException("Category with ID " + id + " not found.");
-		}
+    public List<SubCategory> addSubCategory(List<SubCategory> sc) {
+        return sr.saveAll(sc);
+    }
 
-	}
+    public SubCategory addSubcategoryById(SubCategory sc, String id) {
+        Optional<Category> categoryOptional = cr.findById(id);
+        if (categoryOptional.isPresent()) {
+            sc.setCategory(categoryOptional.get());
+            return sr.save(sc);
+        } else {
+            throw new RuntimeException("Category with ID " + id + " not found.");
+        }
+    }
 
-	public List<SubCategory> getSubcategoryByCategory(String id) {
-		// TODO Auto-generated method stub
-		List<SubCategory> ls = sr.findByCategoryId(id)
-;
-		return ls;
-	}
+    public List<SubCategory> getSubcategoryByCategory(String id) {
+        return sr.findByCategoryId(id);
+    }
 
-	public void UpdateBySubCategoryId(String id, SubCategory sc) {
-		// TODO Auto-generated method stub
-		Optional<SubCategory> op = sr.findById(id)
-;
-		if (op.isPresent()) {
-			SubCategory s = op.get();
-			s.setSubcategoryName(s.getSubcategoryName());
-			sr.save(s);
-		}
+    public void UpdateBySubCategoryId(String id, SubCategory sc) {
+        Optional<SubCategory> op = sr.findById(id);
+        if (op.isPresent()) {
+            SubCategory existingSubCategory = op.get();
+            existingSubCategory.setSubcategoryName(sc.getSubcategoryName());
+            sr.save(existingSubCategory);
+        }
+    }
 
-	}
+    public void deleteSubcategoryById(String id) {
+        sr.deleteById(id);
+    }
 
-	public void deleteSubcategoryById(String id) {
-		// TODO Auto-generated method stub
-
-		cr.deleteById(id)
-;
-
-	}
-
-	public void deleteCategoryById(String categoryId) {
-		// First, delete all associated subcategories
-		sr.deleteByCategoryId(categoryId); // Custom method to delete subcategories
-
-		// Now delete the category
-		cr.deleteById(categoryId);
-	}
-
+    public void deleteCategoryById(String categoryId) {
+        sr.deleteByCategoryId(categoryId); 
+        cr.deleteById(categoryId); 
+    }
 }
